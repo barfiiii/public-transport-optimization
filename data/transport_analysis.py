@@ -20,13 +20,14 @@ df['Departure_Time'] = pd.to_datetime(df['Departure_Time'])
 # Extract useful time features
 df['Hour'] = df['Arrival_Time'].dt.hour
 df['Weekday'] = df['Arrival_Time'].dt.day_name()
+
 # Group by hour to find busiest times
 busiest_hours = df.groupby('Hour')['Passenger_Count'].sum().sort_values(ascending=False)
 
 print("\n⏰ Busiest Hours:")
 print(busiest_hours)
 
-# Plot it
+# Plot busiest hours
 plt.figure(figsize=(10, 6))
 sns.barplot(x=busiest_hours.index, y=busiest_hours.values, palette='magma')
 plt.title("Busiest Hours by Passenger Count")
@@ -35,15 +36,8 @@ plt.ylabel("Total Passengers")
 plt.tight_layout()
 plt.savefig("plots/busiest_hours.png")
 plt.show()
+
+# Find inefficient routes
 route_summary = df.groupby('Route_ID')['Passenger_Count'].sum().sort_values()
 print("\n🚍 Routes with Lowest Passenger Count:")
 print(route_summary.head())
-weekday_trend = df.groupby('Weekday')['Passenger_Count'].sum().sort_values(ascending=False)
-print("\n📆 Passenger Count by Weekday:")
-print(weekday_trend)
-heatmap_data = df.groupby(['Weekday', 'Hour'])['Passenger_Count'].sum().unstack()
-plt.figure(figsize=(12, 6))
-sns.heatmap(heatmap_data, cmap="YlOrRd", annot=True, fmt=".0f")
-plt.title("Passenger Load Heatmap (Weekday vs Hour)")
-plt.savefig("plots/heatmap_weekday_hour.png")
-plt.show()
