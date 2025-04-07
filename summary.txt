@@ -1,0 +1,20 @@
+📝 Transport Analysis Summary
+----------------------------------------
+Top 3 Busiest Hours:
+Hour
+13    1480
+17    1473
+8     1362
+
+Least Used Routes:
+Route_ID
+103    1385
+101    1439
+104    1535
+
+📈 ML Model Stats:
+MSE: 193.23
+R² Score: -0.02
+
+🔮 Example Prediction:
+Route 3, 5 PM Friday → -52 passengers
